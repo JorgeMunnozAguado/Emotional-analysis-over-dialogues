@@ -1,0 +1,9 @@
+GloVe -> better than word2vec (https://www.sciencedirect.com/science/article/pii/S0747563218306150)
+
+
+
+test 1:
+
+pretrain model with word-by-word.
+
+each word 
