@@ -82,7 +82,7 @@ class DataLoader:
 
 
 
-    def sigleLoader(self, path='single_emotions/', verbose=0):
+    def singleLoader(self, path='single_emotions/', verbose=0):
         
         X_data = []
         y_data = []
@@ -106,7 +106,8 @@ class DataLoader:
                         if len(trans) == 0: continue
                         
                         X_data.append( trans[0] )
-                        y_data.append( self.OneHotEncode(i, split[1]) )
+                        y_data.append( self.OneHotEncode(i, 1) )
+                        # y_data.append( self.OneHotEncode(i, split[1]) )
 
 
         return np.asarray(X_data), np.asarray(y_data)

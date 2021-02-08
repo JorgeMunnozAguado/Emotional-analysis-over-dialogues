@@ -1,5 +1,6 @@
 ### Conda enviroment.
 
+numpy gensim keras tensorflow matplotlib scikit-learn
 
 ### Download models
 

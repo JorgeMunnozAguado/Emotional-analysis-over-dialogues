@@ -1,8 +1,10 @@
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
-import keras
 
 from Model import Model
+
+import keras
+import numpy as np
 
 
 class SimpleWordModel(Model):
@@ -49,12 +51,36 @@ class SimpleWordModel(Model):
         pass
     
 
-    def predict(self, X_test):
+    def predict(self, X_test, y_test):
         '''
         Predict the data and returns the classes.
         '''
-        pass
+        
+        predictions = []
+        acc = 0
+        
+        for i, x_dialog in enumerate(X_test, start=0):
 
+            if x_dialog.shape == (0,):  continue
+            
+            if x_dialog.ndim == 1:  x_dialog = np.expand_dims(x_dialog, axis=0)
+        
+            p = self.model.predict(x_dialog)
+            
+            p = np.argmax( np.mean(p, axis=0) )
+            
+            try:
+                if y_test[i] == p:  acc += 1
+                
+            except:
+                print(i)
+            
+            predictions.append( p )
+            
+            
+        acc = acc / X_test.shape[0]
 
-    def plot(self):
-        pass
+        print('Accuracy:', acc, '%')
+        
+        return np.asarray(predictions), acc
+

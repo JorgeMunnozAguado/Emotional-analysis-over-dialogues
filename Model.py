@@ -1,4 +1,7 @@
 from abc import ABC, abstractmethod
+from matplotlib import pyplot as plt
+
+import keras
 
 class Model(ABC):
     '''
@@ -30,9 +33,43 @@ class Model(ABC):
         pass
 
 
-    @abstractmethod
+    #@abstractmethod
     def plot(self):
         '''
         Plot relevant information as accuracy or loss.
         '''
-        pass
+        
+        # Comprueba la versión de Keras.
+        if int(keras.__version__.split('.')[0]) >= 2:
+            
+            plt.plot(self.history.history['accuracy'])
+            plt.plot(self.history.history['val_accuracy'])
+
+
+        # Otra version.
+        else:
+
+            plt.plot(self.history.history['acc'])
+            plt.plot(self.history.history['val_acc'])
+
+
+        # Muestra la tabla de aciertos.
+        plt.title('model accuracy')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.show()
+        #plt.savefig("accuracy.png", dpi=200)
+        plt.clf()
+
+
+        # Muestra la tabla de fallos.
+        plt.plot(self.history.history['loss'])
+        plt.plot(self.history.history['val_loss'])
+        plt.title('model loss')
+        plt.ylabel('loss')
+        plt.xlabel('epoch')
+        plt.legend(['train', 'test'], loc='upper left')
+        plt.show()
+        #plt.savefig("loss.png", dpi=200)
+        plt.clf()
